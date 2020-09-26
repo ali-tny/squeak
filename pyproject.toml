@@ -7,7 +7,9 @@ authors = ["ali-tny <aliteeney@googlemail.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.6"
-sqlparse = "^0.3.1"
+# Use my fork of sqlparse for correct parsing of Postgres WINDOW keyword
+# until my PR on the original (https://github.com/andialbrecht/sqlparse/pull/579) is merged
+sqlparse = { git = "https://github.com/ali-tny/sqlparse.git", branch = "add-window-as-keyword" }
 
 [tool.poetry.dev-dependencies]
 black = "^20.8b1"

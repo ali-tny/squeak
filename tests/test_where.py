@@ -77,8 +77,7 @@ def test_append_cte():
 EXTRAS = [
     "GROUP BY 1, 2, 3",
     "HAVING COUNT(*) > 2",
-    # sqlparse currently doesn't parse windows defined at the end correctly
-    pytest.param("WINDOW w AS (PARTITION BY id ORDER BY y)", marks=pytest.mark.xfail()),
+    "WINDOW w AS (PARTITION BY id ORDER BY y)",
     "ORDER BY 3 DESC",
     "LIMIT 10",
     "OFFSET 10",
