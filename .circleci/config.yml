@@ -1,0 +1,33 @@
+version: 2.1
+orbs:
+  python: circleci/python@1.1.0
+
+jobs:
+  lint:
+    executor: 
+      name: python/default
+      tag: 3.6.9
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: poetry
+      - run:
+          command: |
+            poetry run make lint
+  test:
+    executor: 
+      name: python/default
+      tag: 3.6.9
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: poetry
+      - run:
+          command: |
+            poetry run make test
+
+workflows:
+  lint-test:
+    jobs:
+      - lint
+      - test
