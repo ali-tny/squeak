@@ -34,8 +34,9 @@ def where(
         raise ValueError("More than 1 statement in query.")
     parsed = parsed_statements[0]
     if cte:
-        statement, idx, inner_idx = base.choose_cte(parsed, cte)
-        parsed.tokens[idx].tokens[inner_idx] = _add_filter_to_statement(statement, clause, kind)
+        statement, indices = base.choose_cte(parsed, cte)
+        filtered_statement = _add_filter_to_statement(statement, clause, kind)
+        parsed = base.replace_inner_statement_by_location(parsed, filtered_statement, indices)
     else:
         parsed = _add_filter_to_statement(parsed, clause, kind)
     return str(parsed)
